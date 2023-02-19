@@ -40,3 +40,21 @@ class Solution {
         }
     }
 }
+
+
+// Using extra space
+// t.c. = O(n), s.c.=O(k)
+class Solution {
+    public void rotate(int[] nums, int k) {
+        int n = nums.length;
+        int arr[] = new int[k];
+        k%=n;
+        int j=0;
+        for(int i=n-k; i<n; i++) 
+            arr[j++] = nums[i];
+        for(int i=n-k-1;i>=0;i--) 
+            nums[i+k] = nums[i];
+        while(--j>=0)
+            nums[j] = arr[j];
+    }
+}
