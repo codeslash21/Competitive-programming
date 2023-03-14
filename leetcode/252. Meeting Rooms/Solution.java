@@ -1,5 +1,5 @@
 // using sorting
-// t.c.=O9nlogn), s.c.=O(1)
+// t.c.=O(nlogn), s.c.=O(1)
 class Solution {
     public boolean canAttendMeetings(int[][] intervals) {
         int n=intervals.length;
