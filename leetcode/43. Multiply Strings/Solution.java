@@ -57,3 +57,95 @@ class Solution {
     }
 }
 
+// Using less space for storing the multiplication results
+// t.c.=O(m^2 + m.n) ,s.c.=O(m+n)
+class Solution {
+    public void getSum(ArrayList<Integer> results, ArrayList<Integer> currResult) {
+        int carry=0, i=0;
+        for(i=0;i<currResult.size(); i++) {
+            int num1 = results.get(i);
+            int num2 = currResult.get(i);
+            int sum=num1+num2+carry;
+            results.set(i, sum%10);
+            carry=sum/10;
+        }
+        if(carry!=0)
+            results.set(i, carry);
+    }
+    public void multiplyDigit(StringBuilder firstNum, StringBuilder secondNum, ArrayList<Integer> results) {
+        for(int i=0;i<firstNum.length();i++) {
+            ArrayList<Integer> currResult = new ArrayList<>();
+            int carry=0;
+            for(int j=0;j<i;j++)
+                currResult.add(0);
+            for(int j=0;j<secondNum.length();j++) {
+                int product = (firstNum.charAt(i)-'0')* (secondNum.charAt(j)-'0')+carry;
+                currResult.add(product%10);
+                carry=product/10;
+            }
+            if(carry!=0)
+                currResult.add(carry);
+            getSum(results, currResult);
+        }
+    }
+    public String multiply(String num1, String num2) {
+        int len1=num1.length(), len2=num2.length();
+        if(num1.equals("0") || num2.equals("0"))
+            return "0";
+        StringBuilder firstNum = new StringBuilder(num1);
+        StringBuilder secondNum = new StringBuilder(num2);
+        firstNum.reverse();
+        secondNum.reverse();
+        ArrayList<Integer> result = new ArrayList<>();
+        int N=len1+len2;
+        for(int i=0;i<N;i++)
+            result.add(0);
+        multiplyDigit(firstNum, secondNum, result);
+        if(result.get(result.size()-1)==0)
+            result.remove(result.size()-1);
+        StringBuilder finalResult = new StringBuilder();
+        for(int num:result)
+            finalResult.append(num);
+        finalResult.reverse();
+        return finalResult.toString();
+    }
+}
+
+// Doing sum of the products of all pairs of digits with appropriate carried value in final result array
+// t.c.=O(m.n), s.c.=O(m+n)
+class Solution {
+    public void multiplyDigit(StringBuilder num1, StringBuilder num2, ArrayList<Integer> result) {
+        for(int i=0;i<num2.length();i++) {
+            for(int j=0;j<num1.length(); j++) {
+                int currPosition=i+j;
+                int mul=(num1.charAt(j)-'0')*(num2.charAt(i)-'0');
+                int sum=mul+result.get(currPosition);
+                int carry=sum/10;
+                result.set(currPosition, sum%10);
+                if(carry!=0)
+                    result.set(currPosition+1, carry+result.get(currPosition+1));
+            }
+        }
+    }
+    public String multiply(String num1, String num2) {
+        int len1=num1.length(), len2=num2.length();
+        if(num1.equals("0") || num2.equals("0"))
+            return "0";
+        StringBuilder firstNum = new StringBuilder(num1);
+        StringBuilder secondNum = new StringBuilder(num2);
+        firstNum.reverse();
+        secondNum.reverse();
+        ArrayList<Integer> result = new ArrayList<>();
+        int N=len1+len2;
+        for(int i=0;i<N;i++)
+            result.add(0);
+        multiplyDigit(firstNum, secondNum, result);
+        if(result.get(result.size()-1)==0)
+            result.remove(result.size()-1);
+        StringBuilder finalResult = new StringBuilder();
+        for(int num:result)
+            finalResult.append(num);
+        finalResult.reverse();
+        return finalResult.toString();
+    }
+}
