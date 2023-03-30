@@ -1,5 +1,5 @@
 // Using sliding window
-// t.c.=O(n), s.c.=O(n)
+// t.c.=O(n), s.c.=O(1)
 class Solution {
     public int lengthOfLongestSubstringTwoDistinct(String s) {
         Map<Character, Integer> map = new HashMap<>();
