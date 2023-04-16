@@ -7,11 +7,6 @@ class Solution {
             node.next=node;
             return node;
         }
-        if(head.next==null) {
-            head.next=node;
-            node.next=head;
-            return head;
-        }
         Node prev=head, curr=head.next;
         boolean toInsert=false;
         do {
