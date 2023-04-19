@@ -53,3 +53,24 @@ class Solution {
     }
 }
 
+// Using two pointers
+// t.c.=O(n), s.c.=O(1)
+class Solution {
+    public int trap(int[] heights) {
+        int n=heights.length, rain=0, l=0, r=n-1, lMax=0, rMax=0;
+        while(l<r) {
+            if(heights[l]<heights[r]) {
+                if(heights[l]>lMax)
+                    lMax=heights[l];
+                rain+=lMax-heights[l++];
+            }
+            else {
+                if(heights[r]>rMax)
+                    rMax=heights[r];
+                rain+=rMax-heights[r--];
+            }
+        }
+        return rain;
+    }
+}
+
