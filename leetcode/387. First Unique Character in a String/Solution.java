@@ -1,0 +1,18 @@
+// Using stack
+// t.c.=O(n), s.c.=O(1) as number of english letters is constant
+class Solution {
+    public int firstUniqChar(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int res = -1;
+        for(int i=0;i<s.length();i++) {
+            char c = s.charAt(i);
+            map.put(c, map.getOrDefault(c, 0)+1);
+        }
+        for(int i=0;i<s.length();i++)
+            if(map.get(s.charAt(i))==1) {
+                res=i;
+                break;
+            }
+        return res;
+    }
+}
