@@ -16,7 +16,7 @@ class Solution {
             long res = (9*ways(s, i-1, memo))%M;
             if(i>0 && s.charAt(i-1)=='1')
                 res=(res+9*ways(s, i-2, memo))%M;
-            else if(i>0 && s.charAt(i-1)=='2' && s.charAt(i)<='6')
+            else if(i>0 && s.charAt(i-1)=='2')
                 res=(res+6*ways(s, i-2, memo))%M;
             else if(i>0 && s.charAt(i-1)=='*')
                 res=(res+15*ways(s, i-2, memo))%M;
