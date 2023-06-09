@@ -16,3 +16,29 @@ class Solution {
         return res;
     }
 }
+
+// using KMP algorithm
+// t.c.=O(n), s.c.=O(n)
+class Solution {
+    public boolean rotateString(String s, String goal) {
+        int n=s.length();
+        if(n!=goal.length())
+            return false;
+        int[] shifts = new int[n+1];
+        Arrays.fill(shifts, 1);
+        int left=-1;
+        for(int right=0;right<n;right++) {
+            while(left>=0 && goal.charAt(left)!=goal.charAt(right))
+                left-=shifts[right];
+            shifts[right+1] = right-left++;
+        }
+        int matchLen=0;
+        for(char c:(s+s).toCharArray()) {
+            while(matchLen>=0 && goal.charAt(matchLen)!=c)
+                matchLen -= shifts[matchLen];
+            if(++matchLen==n)
+                return true;
+        }
+        return false;
+    }
+}
