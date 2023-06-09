@@ -29,7 +29,7 @@ class Solution {
         int left=-1;
         for(int right=0;right<n;right++) {
             while(left>=0 && goal.charAt(left)!=goal.charAt(right))
-                left-=shifts[right];
+                left-=shifts[left];
             shifts[right+1] = right-left++;
         }
         int matchLen=0;
