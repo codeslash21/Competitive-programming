@@ -36,7 +36,7 @@ class Solution {
             ans = n;
         else {
             int lo=1, hi=n;
-            while(lo+1<hi) {
+            while(lo<hi) {
                 int x=(lo+hi)/2;
                 int t1=dp(k-1, x-1);
                 int t2=dp(k, n-x);
@@ -47,8 +47,7 @@ class Solution {
                 else
                     lo=hi=x;
             }
-            ans = 1 + Math.min(Math.max(dp(k-1,lo-1), dp(k,n-lo)), 
-                                Math.max(dp(k-1,hi-1), dp(k,n-hi)));
+            ans = 1 + Math.max(dp(k-1,lo-1), dp(k,n-lo));
         }
         map.put(key, ans);
         return map.get(key);
