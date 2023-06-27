@@ -28,3 +28,44 @@ class Solution {
         return false;
     }
 }
+
+// Using disjoint data structure
+// t.c.=O(n), s.c.=O(n)
+class Solution {
+    public int[] findRedundantConnection(int[][] edges) {
+        int n=edges.length;
+        DSU dsu = new DSU(n+1);
+        for(int[] edge:edges)
+            if(!dsu.union(edge[0], edge[1]))
+                return edge;
+        return new int[] {0, 0};
+    }
+}
+class DSU {
+    int[] parent, rank;
+    public DSU(int size) {
+        parent = new int[size];
+        rank = new int[size];
+        for(int i=0; i<size; i++)
+            parent[i]=i;
+    }
+    public int find(int x) {
+        if(parent[x]!=x)
+            parent[x]=find(parent[x]);
+        return parent[x];
+    }
+    public boolean union(int x, int y) {
+        int xp=find(x), yp = find(y);
+        if(xp==yp)
+            return false;
+        else if(rank[xp]>rank[yp])
+            parent[yp]=xp;
+        else if(rank[xp]<rank[yp])
+            parent[xp]=yp;
+        else {
+            parent[yp]=xp;
+            rank[xp]++;
+        }
+        return true;
+    }
+} 
