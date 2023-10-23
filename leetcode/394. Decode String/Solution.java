@@ -1,5 +1,5 @@
 // Using stack
-// t.c.=O(maxxK^countK * n), s.c.=O(maxK^countK * n), where maxK is the maximum value of K and countK is the number of K, and n is the max length of encoded string
+// t.c.=O(maxK^countK * n), s.c.=O(maxK^countK * n), where maxK is the maximum value of K and countK is the number of K, and n is the max length of encoded string
 class Solution {
     public String decodeString(String s) {
         Stack<Character> stack = new Stack<>();
@@ -26,6 +26,36 @@ class Solution {
         for(int i=result.length-1;i>=0;i--)
             result[i]=stack.pop();
         return new String(result);
+    }
+}
+
+// using two stack
+// t.c.=O(maxK*n), s.c.=O(m+n) where m is the number of letter in the final decoded string
+class Solution {
+    public String decodeString(String s) {
+        Stack<Integer> countStack = new Stack<>();
+        Stack<StringBuilder> stringStack = new Stack<>();
+        StringBuilder currString = new StringBuilder();
+        int k=0;
+        for(char c:s.toCharArray()) {
+            if(Character.isDigit(c))
+                k=k*10+c-'0';
+            else if(c=='[') {
+                countStack.push(k);
+                stringStack.push(currString);
+                currString=new StringBuilder();
+                k=0;
+            }
+            else if(c==']') {
+                StringBuilder decode = stringStack.pop();
+                for(int i=countStack.pop();i>0;i--)
+                    decode.append(currString);
+                currString = decode;
+            }
+            else 
+                currString.append(c);
+        }
+        return currString.toString();
     }
 }
 
