@@ -7,16 +7,13 @@ public class Main {
         int t = sc.nextInt();
         while(t-->0) {
             int n = sc.nextInt();
-            String s = sc.next();
+            String s = sc.next().toLowerCase();
             StringBuilder sb = new StringBuilder();
-            char prev = Character.toLowerCase(s.charAt(0));
-            sb.append(prev);
+            sb.append(s.charAt(0));
             for(int i=1;i<n;i++) {
-                char ch = Character.toLowerCase(s.charAt(i));
-                if(prev!=ch) {
-                    prev=ch;
+                char ch = s.charAt(i);
+                if(ch!=s.charAt(i-1)) 
                     sb.append(ch);
-                }
             }
             System.out.println(sb.toString().equals("meow")?"YES":"NO");
         }
