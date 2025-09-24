@@ -7,7 +7,7 @@ public class Main {
         int t = sc.nextInt();
         while(t-->0) {
             long n = sc.nextLong();
-            if(n%4>0 && n%6>0)
+            if((n%4!=0 && n%4!=2) || n<4)
                 System.out.println(-1);
             else {
                 long max = n/4;
