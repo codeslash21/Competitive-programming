@@ -1,19 +1,24 @@
 // Using merge procedure
-// t.c.=O(m+n), s.c.=O(m+n)
+// t.c.=O(m+n), s.c.=O(1)
 class Solution {
-    int n1, n2, l=0, r=0;
-    private int getMin(int[] nums1, int[] nums2) {
-        if(r==n2 || (l<n1 && nums1[l]<nums2[r])) 
-            return nums1[l++];
-        else 
-            return nums2[r++];
-    }
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        n1=nums1.length; n2=nums2.length;
-        int first=0, mid=(n1+n2+1)/2, rem=(n1+n2)%2;
-        while((l+r)<mid) 
-            first = getMin(nums1, nums2);
-        return rem==1?first:(float)(first+getMin(nums1, nums2))/2;
+        int len1=nums1.length, len2=nums2.length, mid=(len1+len2)/2;
+        int firstIdx=0, secondIdx=0, median1=0, median2=0;
+        for(int i=0;i<=mid;i++) {
+            median2=median1;
+            if(firstIdx<len1 && secondIdx<len2) {
+                if(nums1[firstIdx]<=nums2[secondIdx])
+                    median1=nums1[firstIdx++];
+                else
+                    median1=nums2[secondIdx++];
+            } else if(firstIdx<len1)
+                median1=nums1[firstIdx++];
+            else
+                median1=nums2[secondIdx++];
+        }
+        if((len1+len2)%2>0)
+            return (double)median1;
+        return (median1+median2)/2.0;
     }
 }
 
