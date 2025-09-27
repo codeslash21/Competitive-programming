@@ -1,24 +1,18 @@
 // Using sorted map (TreeMap)
 class TimeMap {
-    Map<String, TreeMap<Integer, String>> timeMap;
+    private Map<String, TreeMap<Integer, String>> timeMap;
     public TimeMap() {
         timeMap = new HashMap<>();
     }
     
     public void set(String key, String value, int timestamp) {
-        if(!timeMap.containsKey(key)) {
-            TreeMap<Integer, String> treeMap = new TreeMap<>();
-            timeMap.put(key, treeMap);
-        }
-        timeMap.get(key).put(timestamp, value);
+        timeMap.computeIfAbsent(key, k->new TreeMap<>()).put(timestamp, value);
     }
     
     public String get(String key, int timestamp) {
-        TreeMap<Integer, String> timestampMap = timeMap.get(key);
-        if(timestampMap==null || timestampMap.floorKey(timestamp)==null)
-            return "";
-        else
-            return timestampMap.get(timestampMap.floorKey(timestamp));
+        if(!timeMap.containsKey(key)) return "";
+        Map.Entry<Integer, String> treeMapEntry = timeMap.get(key).floorEntry(timestamp);
+        return treeMapEntry==null?"":treeMapEntry.getValue();
     }
 }
 
