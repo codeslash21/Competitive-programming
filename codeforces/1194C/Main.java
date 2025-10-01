@@ -12,7 +12,7 @@ public class Main {
             for(char c:p.toCharArray())
                 freq[c-'a']++;
             while(j<tLen) {
-                if(i<sLen && s.charAt(i)!=t.charAt(j)) {
+                if(i>=sLen || (i<sLen && s.charAt(i)!=t.charAt(j))) {
                     char tChar=t.charAt(j);
                     if(freq[tChar-'a']>0) {
                         freq[tChar-'a']--;
@@ -21,22 +21,12 @@ public class Main {
                         System.out.println("NO");
                         continue l;
                     }
-                } else if(i>=sLen) {
-                    char tChar=t.charAt(j);
-                    if(freq[tChar-'a']>0) {
-                        freq[tChar-'a']--;
-                        j++;
-                    } else {
-                        System.out.println("NO");
-                        continue l;
-                    }
-                }
-                else {
+                } else {
                     i++;
                     j++;
                 }
             }
-            System.out.println(i==sLen && j==tLen?"YES":"NO");
+            System.out.println(i==sLen?"YES":"NO");
         }
     }
 }
