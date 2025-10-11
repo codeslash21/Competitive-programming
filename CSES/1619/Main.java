@@ -3,34 +3,26 @@
 import java.util.*;
 
 public class Main {
-    static class Pair {
-        int time;
-        boolean isStart;
-        Pair(int time, boolean isStart) {
-            this.time = time;
-            this.isStart = isStart;
-        }
-    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(), active=0, maxOverlap=0, time=0;
-        PriorityQueue<Pair> minHeap = new PriorityQueue<>((a,b) -> {
-            if(a.time!=b.time)
-                return Integer.compare(a.time, b.time);
-            else
-                return Boolean.compare(b.isStart, a.isStart);
-        });
+        int n=sc.nextInt(), arrIdx=0, deptIdx=0, res=0, personCnt=0;
+        int[] arr=new int[n], dept=new int[n];
         for(int i=0;i<n;i++) {
-            time = sc.nextInt();
-            minHeap.add(new Pair(time, true));
-            time = sc.nextInt();
-            minHeap.add(new Pair(time, false));
+            arr[i]=sc.nextInt();
+            dept[i]=sc.nextInt();
         }
-        while(!minHeap.isEmpty()) {
-            Pair pair = minHeap.poll();
-            active += pair.isStart?1:-1;
-            maxOverlap=Math.max(maxOverlap, active);
+        Arrays.sort(arr);
+        Arrays.sort(dept);
+        while(arrIdx<n && deptIdx<n) {
+            if(arr[arrIdx]<=dept[deptIdx]) {
+                personCnt++;
+                arrIdx++;
+            } else {
+                personCnt--;
+                deptIdx++;
+            }
+            res=Math.max(res, personCnt);
         }
-        System.out.println(maxOverlap);
+        System.out.println(res);
     }
 }
