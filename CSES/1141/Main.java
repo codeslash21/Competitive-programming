@@ -4,19 +4,15 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n=sc.nextInt();
-        int start=0, end=0, res=0;
-        Map<Integer, Integer> map = new HashMap<>();
-        for(end=0;end<n;end++) {
-            int ele=sc.nextInt();
-            if(map.containsKey(ele) && map.get(ele)>=start) {
-                res = Math.max(res, end - start);
-                start = map.get(ele) + 1;
-            }
-            map.put(ele, end);
-
+        int n=sc.nextInt(), left=0, right=0, res=0;
+        Map<Integer, Integer> songIdx=new HashMap<>();
+        for(right=1;right<=n;right++) {
+            int song=sc.nextInt();
+            if(songIdx.containsKey(song) && songIdx.get(song)>left)
+                left=songIdx.get(song);
+            songIdx.put(song, right);
+            res=Math.max(res, right-left);
         }
-        res = Math.max(res, end - start);
         System.out.println(res);
     }
 }
