@@ -24,9 +24,8 @@ class Solution {
         return -1;
     }
     public int[] searchRange(int[] nums, int target) {
-        int[] res=new int[2];
-        res[0]=binarySearch(nums, target, true);
-        res[1]=binarySearch(nums, target, false);
-        return res;
+        int firstOccurrence=binarySearch(nums, target, true);
+        int lastOccurrence=binarySearch(nums, target, false);
+        return new int[] {firstOccurrence, lastOccurrence};
     }
 }
