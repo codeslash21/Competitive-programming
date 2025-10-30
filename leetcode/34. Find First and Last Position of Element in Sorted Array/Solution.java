@@ -1,30 +1,32 @@
 // Using binary search
 // t.c.=O(logn), s.c.=O(1)
 class Solution {
-    int left=-1, right=-1;
-    public void binSearch(int[] nums, int start, int end, int target, boolean first) {
-        if(start>end)
-            return;
-        int mid=(start+end)/2;
-        if(nums[mid]==target) {
-            if(first) {
-                left=mid;
-                binSearch(nums, start, mid-1, target, first);
-            }
-            else {
-                right=mid;
-                binSearch(nums, mid+1, end, target, first);
-            }
+    public int binarySearch(int[] nums, int target, boolean isFirst) {
+        int len=nums.length, left=0, right=len-1;
+        while(left<=right) {
+            int mid=left+(right-left)/2;
+            if(nums[mid]==target)
+                if(isFirst) {
+                    if(left==mid || nums[mid-1]!=target)
+                        return mid;
+                    right=mid-1;
+                }
+                else {
+                    if(mid==right || nums[mid+1]!=target)
+                        return mid;
+                    left=mid+1;
+                }
+            else if(nums[mid]>target)
+                right=mid-1;
+            else
+                left=mid+1;
         }
-        else if(nums[mid]<target)
-            binSearch(nums, mid+1, end, target, first);
-        else
-            binSearch(nums, start, mid-1, target, first);
+        return -1;
     }
     public int[] searchRange(int[] nums, int target) {
-        int n=nums.length;
-        binSearch(nums, 0, n-1, target, true);
-        binSearch(nums, 0, n-1, target, false);
-        return new int[]{left, right};
+        int[] res=new int[2];
+        res[0]=binarySearch(nums, target, true);
+        res[1]=binarySearch(nums, target, false);
+        return res;
     }
 }
