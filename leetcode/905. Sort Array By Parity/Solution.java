@@ -46,18 +46,13 @@ class Solution {
 // t.c.=O(n) s.c.=O(1)
 class Solution {
     public int[] sortArrayByParity(int[] nums) {
-        int n=nums.length;
-        int i=0, j=n-1;
-        while(i<j) {
-            if(nums[i]%2==1) {
-                int temp=nums[i];
-                nums[i]=nums[j];
-                nums[j]=temp;
-                j--;
+        int len=nums.length, idx1=0, idx2=0;
+        for(;idx2<len;idx2++) 
+            if(nums[idx2]%2==0) {
+                int num=nums[idx1];
+                nums[idx1++]=nums[idx2];
+                nums[idx2]=num;
             }
-            else
-                i++;
-        }
         return nums;
     }
 }
