@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/backspace-string-compare/
+// https://leetcode.com/problems/adding-spaces-to-a-string/
 // t.c.=O(m+n), s.c.=O(m+n)
 class Solution {
     public String addSpaces(String s, int[] spaces) {
