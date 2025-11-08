@@ -61,23 +61,22 @@ class Solution {
 // t.c.=O(n^2), s.c.=O(n)
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        int n=nums.length;
-        Set<List<Integer>> ans = new HashSet<>();
-        Set<Integer> dups = new HashSet<>();
-        Map<Integer, Integer> seen = new HashMap<>();
-        for(int i=0;i<n-2;i++) {
-            if(dups.add(nums[i])) {
-                for(int j=i+1;j<n;j++) {
-                    int complement = -nums[i]-nums[j];
-                    if(seen.containsKey(complement) && seen.get(complement)==i) {
-                        List<Integer> triplet = Arrays.asList(nums[i], nums[j], complement);
+        int len=nums.length;
+        Set<Integer> duplicate1=new HashSet<>(), seen=new HashSet<>();
+        Set<List<Integer>> res=new HashSet<>();
+        for(int i=0;i<len-2;i++) {
+            if(duplicate1.add(nums[i]))
+                for(int j=i+1;j<len;j++) {
+                    int complement=-nums[i]-nums[j];
+                    if(seen.contains(complement)) {
+                        List<Integer> triplet=Arrays.asList(nums[i], nums[j], complement);
                         Collections.sort(triplet);
-                        ans.add(triplet);
+                        res.add(triplet);
                     }
-                    seen.put(nums[j], i);
+                    seen.add(nums[j]);
                 }
-            }
+            seen.clear();   
         }
-        return new ArrayList(ans);
+        return new ArrayList(res);
     }
 }
