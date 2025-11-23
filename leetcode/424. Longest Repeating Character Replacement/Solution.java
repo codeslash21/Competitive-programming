@@ -30,7 +30,7 @@ class Solution {
 }
 
 // sliding window (slow)
-// t.c.=O(m*n), s.c.=O(m), m=number of distinct characters in s
+// t.c.=O(m*n), s.c.=O(1)
 class Solution {
     public int characterReplacement(String s, int k) {
         int len=s.length(), res=0;
