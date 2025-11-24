@@ -13,30 +13,41 @@ class Solution {
 }
 
 // Using sliding window
-// t.c.=O(logn + k), s.c.=O(1)
+// t.c.=O(n), s.c.=O(1)
 class Solution {
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
-        List<Integer> res = new ArrayList<>();
-        int left=0, n=arr.length, right=n-1;
-        while(left<right) {
-            int mid=(left+right)/2;
-            if(arr[mid]>=x)
-                right=mid;
-            else
-                left=mid+1;
-        }
-        left-=1;
-        while(right-left<=k) {
-            if(left==-1) {
-                right++;
-                continue;
+        int len=arr.length, left=0, right=0, finalLeft=0, finalRight=k-1, prevSum=0;
+        List<Integer> res=new ArrayList<>();
+        while(right<k)
+            prevSum+=Math.abs(x-arr[right++]);
+        while(right<len) {
+            int currSum=prevSum+Math.abs(x-arr[right++])-Math.abs(x-arr[left++]);
+            if(currSum<prevSum) {
+                prevSum=currSum;
+                finalLeft=left;
+                finalRight=right-1;
             }
-            if(right==n || Math.abs(arr[left]-x)<=Math.abs(arr[right]-x))
-                left-=1;
-            else
-                right+=1;
         }
-        for(int i=left+1; i<right; i++)
+        for(int i=finalLeft;i<=finalRight;i++)
+            res.add(arr[i]);
+        return res;
+    }
+}
+
+// using binary search
+// t.c.=O(log(n-k) + k), s.c.=O(1)
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        int len=arr.length, left=0, right=len-k;
+        List<Integer> res=new ArrayList<>();
+        while(left<right) {
+            int mid=left+(right-left)/2;
+            if(x-arr[mid]>arr[mid+k]-x)
+                left=mid+1;
+            else
+                right=mid;
+        }
+        for(int i=left;i<left+k;i++)
             res.add(arr[i]);
         return res;
     }
