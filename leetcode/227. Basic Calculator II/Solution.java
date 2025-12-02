@@ -28,3 +28,30 @@ class Solution {
         return res;
     }
 }
+
+// Optimization without using stack
+// t.c.=O(n), s.c.=O(1)
+class Solution {
+    public int calculate(String s) {
+        int len=s.length(), currNum=0, lastNum=0, res=0;
+        char prevOperation='+';
+        for(int i=0;i<len;i++) {
+            char currChar=s.charAt(i);
+            if(Character.isDigit(currChar))
+                currNum=currNum*10 + (currChar-'0');
+            if((!Character.isDigit(currChar) && !Character.isWhitespace(currChar)) || i==len-1) {
+                if(prevOperation=='+' || prevOperation=='-') {
+                    res+=lastNum;
+                    lastNum=prevOperation=='+'?currNum:-currNum;
+                }
+                else if(prevOperation=='*')
+                    lastNum=lastNum*currNum;
+                else
+                    lastNum=lastNum/currNum;
+                currNum=0;
+                prevOperation=currChar;
+            }
+        }
+        return res+lastNum;
+    }
+}
