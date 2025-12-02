@@ -15,3 +15,22 @@ class Solution {
         return maxWidth;
     }
 }
+
+// using stack
+// t.c.=O(n), s.c.=O(n)
+class Solution {
+    public int maxWidthRamp(int[] nums) {
+        int len=nums.length, maxWidth=0;
+        Stack<Integer> indicesStack=new Stack<>();
+        for(int i=0;i<len;i++)
+            if(indicesStack.isEmpty() || nums[indicesStack.peek()]>nums[i])
+                indicesStack.push(i);
+        for(int right=len-1;right>=0;right--) {
+            while(!indicesStack.isEmpty() && nums[indicesStack.peek()]<=nums[right]) {
+                maxWidth=Math.max(maxWidth, right-indicesStack.peek());
+                indicesStack.pop();
+            }
+        }
+        return maxWidth;
+    }
+}
