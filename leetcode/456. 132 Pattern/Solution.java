@@ -1,4 +1,21 @@
 // https://leetcode.com/problems/132-pattern/description/
+// using bruteforce
+// t.c.=O(n^2), s.c.=O(1)
+class Solution {
+    public boolean find132pattern(int[] nums) {
+        int len=nums.length, min=nums[0];
+        for(int j=1;j<len-1;j++) {
+            min=Math.min(min, nums[j]);
+            if(min==nums[j])
+                continue;
+            for(int k=j+1;k<len;k++)
+                if(nums[k]>min && nums[k]<nums[j])
+                    return true;
+        }
+        return false;
+    }
+}
+
 // searching intervals
 // t.c.=O(n^2), s.c.=O(n)
 class Solution {
