@@ -35,3 +35,26 @@ class Solution {
         return false;
     }
 }
+
+//  using stack
+// t.c.=O(n), s.c.=O(n)
+class Solution {
+    public boolean find132pattern(int[] nums) {
+        int len=nums.length;
+        int[] min=new int[len];
+        Stack<Integer> stack=new Stack<>();
+        min[0]=nums[0];
+        for(int i=1;i<len;i++)
+            min[i]=Math.min(nums[i], min[i-1]);
+        for(int j=len-1;j>0;j--) {
+            if(nums[j]>min[j]) {
+                while(!stack.isEmpty() && min[j]>=stack.peek())
+                    stack.pop();
+                if(!stack.isEmpty() && nums[j]>stack.peek())
+                    return true;
+                stack.push(nums[j]);
+            }
+        }
+        return false;
+    }
+}
