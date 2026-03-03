@@ -50,3 +50,30 @@ public class Codec {
         return decodedStrings;
     }
 }
+
+// chunked transfer encoding
+// t.c.=O(n), s.c.=O(n)
+public class Codec {
+    StringBuilder encodedString=new StringBuilder();
+    // Encodes a list of strings to a single string.
+    public String encode(List<String> strs) {
+        for(String str:strs) {
+            encodedString.append(str.length()).append("/:").append(str);
+        }
+        return encodedString.toString();
+    }
+
+    // Decodes a single string to a list of strings.
+    public List<String> decode(String s) {
+        List<String> decodedStrings=new ArrayList<>();
+        int i=0, len=s.length();
+        while(i<len) {
+            int delim=s.indexOf("/:", i);
+            int length=Integer.parseInt(s.substring(i, delim));
+            String str=s.substring(delim+2, delim+2+length);
+            decodedStrings.add(str);
+            i=delim+2+length;
+        }
+        return decodedStrings;
+    }
+}
