@@ -2,21 +2,19 @@
 // t.c.=O(n), s.c.=O(n)
 class Solution {
     public int longestConsecutive(int[] nums) {
-        Set<Integer> set = new HashSet<>();
+        Set<Integer> numSet=new HashSet<>();
+        int longestStreak=0;
         for(int num:nums)
-            set.add(num);
-        int res=0;
-        for(int num:nums) {
-            if(!set.contains(num-1)) {
-                int curr = num;
-                int currStreak = 1;
-                while(set.contains(curr+1)) {
-                    curr+=1;
-                    currStreak+=1;
+            numSet.add(num);
+        for(int num:numSet)
+            if(!numSet.contains(num-1)) {
+                int currentStreak=1, nextRequiredNum=num+1;
+                while(numSet.contains(nextRequiredNum)) {
+                    currentStreak++;
+                    nextRequiredNum++;
                 }
-                res = Math.max(res, currStreak);
+                longestStreak=Math.max(longestStreak, currentStreak);
             }
-        }
-        return res;
+        return longestStreak;
     }
 }
