@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/reveal-cards-in-increasing-order/description/
 // using queue
-// t.c.=O(n), s.c.=O(n)
+// t.c.=O(nlogn), s.c.=O(n)
 class Solution {
     public int[] deckRevealedIncreasing(int[] deck) {
         int len=deck.length;
