@@ -14,3 +14,21 @@ class Solution {
         return dp[len-1];
     }
 }
+
+// using bfs
+// t.c.=O(n), s.c.=O(1)
+class Solution {
+    public int jump(int[] nums) {
+        int currEnd=0, jumps=0, furthest=0, len=nums.length;
+        for(int i=0;i<len-1;i++) {
+            furthest=Math.max(furthest, i+nums[i]);
+            if(currEnd==i) {
+                jumps++;
+                currEnd=furthest;
+            }
+            if(currEnd>=len-1)
+                break;
+        }
+        return jumps;
+    }
+}
