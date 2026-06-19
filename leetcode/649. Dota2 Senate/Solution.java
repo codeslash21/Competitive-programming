@@ -26,3 +26,27 @@ class Solution {
         }
     }
 }
+
+// using queue
+// t.c.=O(n), s.c.=O(n)
+class Solution {
+    public String predictPartyVictory(String senate) {
+        int len=senate.length(), cnt=0;
+        Queue<Character> senators=new LinkedList<>();
+        for(char ch:senate.toCharArray())
+            senators.offer(ch);
+        while(!senators.isEmpty()) {
+            char currSenator=senators.poll();
+            if(currSenator=='R') {
+                if(cnt<0)
+                    senators.offer('D');
+                cnt++;
+            } else {
+                if(cnt>0)
+                    senators.offer('R');
+                cnt--;
+            }
+        }
+        return cnt>0?"Radiant":"Dire";
+    }
+}
