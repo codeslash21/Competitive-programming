@@ -27,3 +27,28 @@ class Solution {
         return minCandy;
     }
 }
+
+// using greedy
+// t.c.=O(n), s.c.=O(1)
+class Solution {
+    public int candy(int[] ratings) {
+        int len=ratings.length, minCandy=len, idx=1;
+        while(idx<len) {
+            while(idx<len && ratings[idx-1]==ratings[idx])
+                idx++;
+            int inc=0, dec=0;
+            while(idx<len && ratings[idx-1]<ratings[idx]) {
+                inc++;
+                minCandy+=inc;
+                idx++;
+            }
+            while(idx<len && ratings[idx-1]>ratings[idx]) {
+                dec++;
+                minCandy+=dec;
+                idx++;
+            }
+            minCandy-=Math.min(inc, dec);
+        }
+        return minCandy;
+    }
+}
