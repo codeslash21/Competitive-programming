@@ -1,15 +1,6 @@
 // https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/description/
 // convert the tree to an undirected graph + BFS
 // t.c.=O(n), s.c.=O(n)
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
 class Solution {
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         Map<Integer, List<Integer>> graph=new HashMap<>();
@@ -47,15 +38,6 @@ class Solution {
 
 // using DFS
 // t.c.=O(n), s.c.=O(h)
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
 class Solution {
     List<Integer> result=new ArrayList<>();
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
