@@ -1,4 +1,27 @@
 // https://leetcode.com/problems/network-delay-time/description/
+// using Bellman-Ford algo
+// t.c.=O(E*V), s.c.=O(V)
+class Solution {
+    public int networkDelayTime(int[][] times, int n, int k) {
+        int maxTime=0, INF=Integer.MAX_VALUE;
+        int[] minTime=new int[n+1];
+        Arrays.fill(minTime, INF);
+        minTime[k]=0;
+        for(int round=0;round<n-1;round++) {
+            for(int[] edge:times) {
+                int u=edge[0], v=edge[1], w=edge[2];
+                if(minTime[u]!=INF && minTime[u]+w<minTime[v])
+                    minTime[v]=minTime[u]+w;
+            }
+        }
+        for(int i=1;i<=n;i++) {
+            if(minTime[i]==INF) return -1;
+            maxTime=Math.max(maxTime, minTime[i]);
+        }
+        return maxTime;
+    }
+}
+
 // using Dijkstra' algo
 // t.c.=O(ElogV), s.c.=O(E+V)
 class Solution {
