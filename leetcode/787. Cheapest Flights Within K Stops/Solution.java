@@ -34,3 +34,23 @@ class Solution {
         return -1;
     }
 }
+
+// using bellman-ford's algo
+// t.c.=O(k(n+E)), s.c.=O(n)
+class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        int INF=Integer.MAX_VALUE;
+        int[] dist=new int[n];
+        Arrays.fill(dist, INF);
+        dist[src]=0;
+        for(int i=0;i<=k;i++) {
+            int[] prevDist=dist.clone();
+            for(int[] flight:flights) {
+                int from=flight[0], to=flight[1], price=flight[2];
+                if(prevDist[from]!=INF && prevDist[from]+price<dist[to])
+                    dist[to]=prevDist[from]+price;
+            }
+        }
+        return dist[dst]==INF?-1:dist[dst];
+    }
+}
